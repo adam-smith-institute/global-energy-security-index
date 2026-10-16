@@ -1,0 +1,1322 @@
+<title>Global Energy Security Index 2026</title>
+<meta name="description" content="Adam Smith Institute Global Energy Security Index 2026: 187 countries and territories scored on dispatchability, diversity, import security and ability to pay.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap">
+<style>
+  /* ASI Design System, light treatment: white is the core colour and ASI blue (#134079)
+     the secondary, carrying headings, controls, rules and the main buttons. Josefin Sans
+     throughout. The map scale (red to green) is a data encoding requested for the index. */
+  :root {
+    color-scheme: light;
+    --white: #ffffff;
+    --blue: #134079;
+    --blue-deep: #0d2f5c;
+    --navy: #1b2a4a;
+    --lavender: #8b8dbe;
+    --muted: #4a5873;
+    --line: #dce2eb;
+    --tint: #f1f4f9;
+    --ocean: #edf1f7;
+
+    /* red -> green score scale (ColorBrewer RdYlGn 5), adjacent steps validated for CVD */
+    --band-1: #d73027;
+    --band-2: #fc8d59;
+    --band-3: #fee08b;
+    --band-4: #91cf60;
+    --band-5: #1a9850;
+    --nodata-a: #d3d7de;
+    --nodata-b: #bcc2cc;
+
+    --font: "Josefin Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --gutter: clamp(16px, 5vw, 64px);
+    --measure: 64ch;
+    --swoop: cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--white);
+    color: var(--navy);
+    font-family: var(--font);
+    font-weight: 300;
+    font-size: 1.125rem;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1320px; margin-inline: auto; padding-inline: var(--gutter); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  h1, h2, h3 { font-weight: 600; text-wrap: balance; margin: 0; color: var(--blue); }
+  p { margin: 0; }
+  .hl { white-space: nowrap; text-decoration: underline; text-decoration-color: var(--lavender); text-decoration-thickness: 0.09em; text-underline-offset: 0.14em; text-decoration-skip-ink: none; }
+  .num { font-variant-numeric: tabular-nums lining-nums; }
+  .sfx { font-size: 0.5em; vertical-align: 0.72em; margin-left: 0.04em; letter-spacing: 0.02em; }
+  .of { font-weight: 400; font-size: 0.34em; color: var(--navy); letter-spacing: 0; }
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+  .arrow { width: 40px; height: 16px; flex: none; display: block; transition: transform 0.25s var(--swoop); }
+
+  /* ---------- Site header ---------- */
+  .site-head { border-bottom: 1px solid var(--line); }
+  .site-head .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 14px; }
+  .site-name { font-weight: 600; font-size: 1.05rem; color: var(--blue); }
+  .site-head .mark { width: clamp(48px, 5vw, 64px); }
+
+  /* ---------- Masthead ---------- */
+  .mast { position: relative; isolation: isolate; padding-block: clamp(28px, 4vw, 52px) clamp(32px, 4vw, 48px); }
+  .mast::before, .mast::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
+  .mast::before { z-index: -2; background: url("backdrop.jpg") 50% 45% / cover no-repeat; opacity: 0.13; }
+  .mast::after { z-index: -1; background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0) 72%, var(--white) 100%); }
+  .mast-text { display: grid; gap: 24px; }
+  .mark { height: auto; flex: none; display: block; }
+  h1 { font-size: clamp(2.4rem, 5.2vw, 4.6rem); line-height: 1.2; letter-spacing: -0.005em; }
+  .lead { font-size: clamp(1.15rem, 1.7vw, 1.4rem); line-height: 1.38; max-width: var(--measure); }
+  /* A stroke of red paint (the index's "most insecure" red) under the UK's worst ranking; it sweeps in on load. */
+  .paint {
+    color: var(--white); font-weight: 600; white-space: nowrap;
+    padding: 0.2em 0.5em 0.14em; margin-inline: -0.05em; letter-spacing: 0.01em;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 53' preserveAspectRatio='none'%3E%3Cpath d='M6,8 L22,5 L41,7 L63,4 L88,6 L112,3 L141,5 L170,3 L201,5 L231,3 L262,6 L291,4 L321,6 L349,3 L372,6 L390,5 L397,11 L393,19 L399,27 L394,36 L396,43 L381,48 L353,46 L322,49 L291,47 L259,50 L228,47 L197,50 L166,47 L135,50 L104,47 L74,49 L47,46 L24,49 L9,46 L3,38 L7,29 L2,20 L5,12 Z' fill='%23d73027'/%3E%3Cpath d='M384,1 L398,2 L397,4 L383,4 Z M386,49 L399,49 L398,52 L385,51 Z M1,4 L14,3 L13,6 L2,6 Z M3,49 L18,50 L17,52 L4,52 Z' fill='%23d73027' opacity='.55'/%3E%3C/svg%3E") left center / 100% 100% no-repeat;
+    animation: paint-in 0.75s cubic-bezier(0.6, 0, 0.25, 1) 0.5s both;
+  }
+  @keyframes paint-in {
+    from { background-size: 0% 100%; color: var(--navy); }
+    55% { color: var(--navy); }
+    to { background-size: 100% 100%; color: var(--white); }
+  }
+
+  .uk-strip {
+    margin-top: clamp(28px, 3.5vw, 44px);
+    display: grid;
+    grid-template-columns: minmax(200px, auto) 1fr;
+    gap: clamp(24px, 4vw, 64px);
+    align-items: end;
+  }
+  .uk-stat { display: grid; gap: 8px; }
+  .uk-stat .big { font-size: clamp(4.5rem, 9vw, 8rem); line-height: 1; font-weight: 600; color: var(--blue); }
+  .uk-stat .sub { font-weight: 400; font-size: 1.05rem; max-width: 30ch; }
+  .uk-comps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding-bottom: 10px; }
+  .uk-comp { display: grid; gap: 4px; align-content: start; border-top: 3px solid var(--blue); padding-top: 12px; }
+  .uk-comp .k { font-weight: 400; font-size: 0.95rem; }
+  .uk-comp .v { font-weight: 600; font-size: clamp(1.8rem, 3vw, 2.5rem); line-height: 1.2; color: var(--blue); }
+  .uk-comp .r { font-weight: 300; font-size: 0.95rem; color: var(--muted); }
+
+  /* Main-page buttons: rounded glossy pills in ASI blue (a requested departure from the flat system). */
+  .cta-row { margin-top: clamp(28px, 3.5vw, 40px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+  .cta {
+    position: relative; overflow: hidden; isolation: isolate;
+    display: flex; justify-content: center; align-items: center;
+    min-height: 96px; padding: 18px 32px;
+    border: 0; border-radius: 28px; cursor: pointer; text-align: center;
+    font: inherit; color: var(--white);
+    background-color: var(--blue);
+    background-image:
+      radial-gradient(130% 80% at 50% -20%, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0.1) 40%, rgba(255, 255, 255, 0) 62%),
+      linear-gradient(170deg, #2b5ea3 0%, #134079 55%, #0d2f5c 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      inset 0 -4px 10px rgba(0, 0, 0, 0.18),
+      0 2px 3px rgba(19, 64, 121, 0.22),
+      0 18px 32px -16px rgba(19, 64, 121, 0.65);
+    transition: transform 0.35s var(--swoop), box-shadow 0.35s var(--swoop);
+  }
+  .cta:hover { transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.35),
+      inset 0 -4px 10px rgba(0, 0, 0, 0.18),
+      0 4px 6px rgba(19, 64, 121, 0.22),
+      0 26px 40px -16px rgba(19, 64, 121, 0.75); }
+  .cta:active { transform: translateY(0) scale(0.99); }
+  .cta:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px; }
+  .cta-title { font-weight: 600; font-size: clamp(1.4rem, 2.3vw, 1.85rem); line-height: 1.2; }
+
+  /* Pulsing cue down to the heat map. It sits under the buttons and, on screens too short to show it
+     there, sticks to the bottom edge until the reader scrolls to it. */
+  .scroll-cue {
+    position: sticky; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); z-index: 5;
+    display: flex; align-items: center; gap: 14px; width: max-content; margin: 24px auto 0;
+    padding: 8px 24px 8px 8px; border-radius: 999px;
+    background: var(--white); color: var(--blue); text-decoration: none; white-space: nowrap;
+    font-weight: 600; font-size: 1.05rem;
+    box-shadow: 0 0 0 1px var(--line), 0 14px 30px -12px rgba(19, 64, 121, 0.5);
+    transition: box-shadow 0.25s;
+  }
+  .scroll-cue:hover { box-shadow: 0 0 0 1px var(--lavender), 0 18px 34px -12px rgba(19, 64, 121, 0.6); }
+  .scroll-cue .ring {
+    position: relative; isolation: isolate; flex: none;
+    width: 40px; height: 40px; border-radius: 50%;
+    display: grid; place-items: center; background: var(--blue); color: var(--white);
+  }
+  .scroll-cue .ring::before, .scroll-cue .ring::after {
+    content: ""; position: absolute; inset: 0; z-index: -1; border-radius: 50%; background: var(--blue);
+    animation: cue-pulse 2.4s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
+  }
+  .scroll-cue .ring::after { animation-delay: 1.2s; }
+  .scroll-cue svg { width: 16px; height: 16px; animation: cue-nudge 2.4s ease-in-out infinite; }
+  @keyframes cue-pulse { from { transform: scale(1); opacity: 0.5; } to { transform: scale(2); opacity: 0; } }
+  @keyframes cue-nudge { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(3px); } }
+
+  /* ---------- Heat map (main page) ---------- */
+  .atlas { padding-block: clamp(32px, 4vw, 56px) 8px; border-top: 3px solid var(--blue); scroll-margin-top: 0; }
+  .atlas-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 32px; margin-bottom: 20px; }
+  .atlas-head h2:focus { outline: none; }
+  h2 { font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.28; }
+
+  /* ---------- Methodology (panel) ----------
+     Set like a paper: STIX Two text and maths (SIL Open Font Licence), MathML equations numbered
+     on the right, one step per screen with a rail that tracks the reader. */
+  @font-face { font-family: "STIX Two Text"; font-style: normal; font-weight: 400 700; font-display: swap; src: url("fonts/stix-two-text.woff2") format("woff2"); }
+  @font-face { font-family: "STIX Two Text"; font-style: italic; font-weight: 400 700; font-display: swap; src: url("fonts/stix-two-text-italic.woff2") format("woff2"); }
+  @font-face { font-family: "STIX Two Math"; font-style: normal; font-weight: 400; font-display: swap; src: url("fonts/stix-two-math.woff2") format("woff2"); }
+  math { font-family: "STIX Two Math", "Cambria Math", math; }
+  .method-body { display: grid; gap: clamp(28px, 4vw, 48px); }
+  .paper { font-family: "STIX Two Text", Cambria, Georgia, serif; font-weight: 400; font-size: 1.2rem; line-height: 1.6; color: var(--navy); font-variant-numeric: lining-nums; }
+  .m-intro { max-width: 66ch; }
+  .m-steps { max-width: 740px; }
+  .m-step .paper { display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
+  .paper h4 { margin: 14px 0 0; font-family: var(--font); font-weight: 600; font-size: 1.05rem; line-height: 1.3; color: var(--blue); }
+  .src { font-size: 0.9rem; font-weight: 400; color: var(--muted); max-width: 80ch; }
+
+  .eq { display: flex; align-items: center; gap: 16px; padding-block: 4px; }
+  .eq.numbered::before { content: ""; flex: none; width: 2.6em; }
+  .eq-m { flex: 1 1 auto; min-width: 0; overflow-x: auto; overscroll-behavior-x: contain; }
+  .eq-m math { width: max-content; min-width: 100%; font-size: 1.1em; }
+  .eq-n { flex: none; width: 2.6em; text-align: right; }
+  .eq-m.wide { -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); mask-image: linear-gradient(90deg, #000 calc(100% - 48px), transparent); }
+  mtable.al mtd { padding: 0.3em 0; }
+  mtable.al mtd:first-child { text-align: right; }
+  mtable.al mtd:last-child { text-align: left; }
+  .eq .res { color: var(--blue); }
+
+  .m-table-wrap { overflow-x: auto; padding-block: 4px; }
+  .m-units { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+
+  .m-grid { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: clamp(32px, 5vw, 88px); align-items: start; }
+  .m-rail { position: sticky; top: calc(var(--bar-h, 96px) + 32px); }
+  .m-rail ol { list-style: none; margin: 0; padding: 0; position: relative; display: grid; gap: 6px; }
+  .m-rail ol::before, .m-rail ol::after { content: ""; position: absolute; left: 17px; top: 22px; bottom: 22px; width: 2px; background: var(--line); }
+  .m-rail ol::after { background: var(--blue); transform-origin: top; transform: scaleY(var(--p, 0)); transition: transform 0.35s var(--swoop); }
+  .m-rail a { display: flex; align-items: center; gap: 14px; padding: 4px 0; color: var(--navy); text-decoration: none; font-weight: 400; font-size: 1rem; }
+  .m-rail a:hover .m-t { text-decoration: underline; text-underline-offset: 3px; }
+  .m-n {
+    position: relative; z-index: 1; flex: none; width: 36px; height: 36px; border-radius: 50%;
+    display: grid; place-items: center; background: var(--white); color: var(--blue); font-weight: 600; font-size: 0.95rem;
+    box-shadow: inset 0 0 0 2px var(--line); transition: background-color 0.25s, color 0.25s, box-shadow 0.25s;
+  }
+  .m-rail a.done .m-n { box-shadow: inset 0 0 0 2px var(--blue); }
+  .m-rail a[aria-current="step"] { color: var(--blue); font-weight: 600; }
+  .m-rail a[aria-current="step"] .m-n { background: var(--blue); color: var(--white); box-shadow: 0 0 0 5px rgba(19, 64, 121, 0.14); }
+  .m-progress { position: absolute; left: 0; right: 0; bottom: -1px; height: 3px; }
+  .m-progress i { position: absolute; inset: 0; background: var(--blue); transform-origin: left; transform: scaleX(0); }
+
+  .m-step { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; align-content: start; padding-block: 8px 56px; scroll-margin-top: calc(var(--bar-h, 96px) + 8px); }
+  .m-step + .m-step { border-top: 1px solid var(--line); padding-top: 40px; }
+  .m-step h3 { font-size: clamp(1.5rem, 2.4vw, 1.9rem); line-height: 1.25; }
+
+  .site-foot { padding-block: 40px 48px; }
+  .site-foot .rule { width: 160px; height: 3px; background: var(--blue); margin-bottom: 14px; }
+  .foot-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; font-weight: 400; font-size: 1rem; }
+  .foot-row .srcs { font-weight: 300; max-width: 70ch; color: var(--muted); }
+
+  /* ---------- Expanding panels ---------- */
+  .panel {
+    position: fixed; inset: 0; z-index: 50;
+    background: var(--white);
+    overflow-y: auto; overscroll-behavior: contain;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .panel-bar {
+    position: sticky; top: 0; z-index: 5; background: var(--white); border-bottom: 1px solid var(--line);
+    padding-top: calc(env(safe-area-inset-top, 0px) + 16px); padding-bottom: 12px; margin-bottom: 20px;
+  }
+  .panel-bar .wrap { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px 32px; }
+  .panel-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 20px; }
+  .panel-tools .mark { width: 48px; }
+  .text-btn, .close {
+    font: inherit; font-weight: 400; font-size: 1rem; color: var(--blue);
+    background: none; border: 0; padding: 8px 0; cursor: pointer;
+    display: inline-flex; align-items: center; gap: 12px; min-height: 44px;
+  }
+  .text-btn .arrow { width: 32px; height: 13px; }
+  .text-btn:hover .arrow { transform: translateX(6px); }
+  .close { font-weight: 600; }
+  .close svg { width: 18px; height: 18px; }
+  .close:hover, .text-btn:hover { color: var(--navy); }
+  .panel-body { padding-block: 0 56px; }
+
+  /* ---------- Heat map ---------- */
+  .toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; margin-bottom: 16px; align-items: end; }
+  .seg { display: flex; flex-wrap: wrap; gap: 4px 22px; }
+  .seg button, .zoom button {
+    font: inherit; font-weight: 400; font-size: 1rem; color: var(--navy);
+    background: none; border: 0; padding: 6px 0 5px; cursor: pointer;
+    border-bottom: 3px solid transparent;
+  }
+  .seg button[aria-pressed="true"] { font-weight: 600; color: var(--blue); border-bottom-color: var(--blue); }
+  .seg button:hover { border-bottom-color: var(--lavender); }
+  .zoom { display: flex; gap: 18px; align-items: center; }
+  .zoom .sq {
+    width: 32px; height: 32px; padding: 0; border: 0; background: var(--blue); color: var(--white);
+    font-size: 1.3rem; line-height: 32px; font-weight: 400; text-align: center;
+  }
+  .zoom .sq:hover { background: var(--navy); }
+
+  .map-layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: clamp(24px, 3vw, 48px); align-items: start; }
+  .map-wrap { position: relative; background: var(--ocean); }
+  #map { width: 100%; height: auto; display: block; cursor: grab; }
+  #map:active { cursor: grabbing; }
+  #map path.c { stroke: var(--white); stroke-width: 0.9; stroke-linejoin: round; vector-effect: non-scaling-stroke; transition: fill 0.25s; }
+  #map path.c.scored { cursor: pointer; }
+  #map circle.dot:hover { stroke: var(--blue); stroke-width: 1.8; }
+  #map .hov { fill: none; stroke: var(--blue); stroke-width: 2; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; }
+  #map circle.dot { stroke: var(--white); stroke-width: 1; vector-effect: non-scaling-stroke; cursor: pointer; transition: fill 0.25s; }
+  #map .lift { stroke: var(--white); stroke-width: 1.2; stroke-linejoin: round; vector-effect: non-scaling-stroke; pointer-events: none; transition: fill 0.25s; }
+
+  .tip {
+    position: absolute; left: 0; top: 0; pointer-events: none; z-index: 2;
+    background: var(--blue); color: var(--white);
+    padding: 10px 14px 9px; min-width: 180px; max-width: 260px;
+    font-size: 0.95rem; line-height: 1.35;
+  }
+  .tip b { font-weight: 600; display: block; font-size: 1.05rem; }
+  .tip .t-rank { font-weight: 600; font-size: 1.7rem; line-height: 1.2; display: flex; align-items: baseline; gap: 6px; margin-top: 2px; }
+  .tip .t-rank i { width: 12px; height: 12px; display: inline-block; align-self: center; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.6); }
+  .tip .t-rank .of { font-size: 0.55em; color: var(--white); }
+
+  .shade-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; margin-top: 18px; }
+  .shade-lab { font-weight: 600; font-size: 0.95rem; color: var(--blue); }
+  .switch {
+    position: relative; isolation: isolate; display: inline-grid; grid-auto-flow: column; grid-auto-columns: 1fr;
+    padding: 4px; border-radius: 999px; background: var(--tint); box-shadow: inset 0 0 0 1px var(--line);
+  }
+  .switch::before {
+    content: ""; position: absolute; z-index: -1; top: 4px; bottom: 4px; left: 4px; width: calc(50% - 4px);
+    border-radius: 999px; background: var(--blue); box-shadow: 0 2px 6px rgba(19, 64, 121, 0.35);
+    transition: transform 0.35s var(--swoop);
+  }
+  .switch[data-at="rank"]::before { transform: translateX(100%); }
+  .switch button {
+    font: inherit; font-weight: 600; font-size: 0.95rem; color: var(--blue); background: none; border: 0;
+    border-radius: 999px; padding: 8px 18px; cursor: pointer; white-space: nowrap; transition: color 0.25s;
+  }
+  .switch button[aria-pressed="true"] { color: var(--white); }
+  .switch button:focus-visible { outline-offset: 1px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin-top: 14px; font-size: 0.95rem; font-weight: 400; }
+  .legend .ramp-key { display: inline-flex; align-items: center; gap: 10px; }
+  .legend i.ramp { width: min(280px, 50vw); height: 14px; }
+  .legend > span { display: inline-flex; align-items: center; gap: 8px; }
+  .legend i { width: 16px; height: 16px; display: inline-block; flex: none; }
+  .legend i.none { background: repeating-linear-gradient(45deg, var(--nodata-a) 0 3px, var(--nodata-b) 3px 6px); }
+  .legend .n { font-weight: 300; color: var(--muted); }
+  .caption { margin-top: 14px; font-size: 1rem; max-width: var(--measure); }
+  .hint { margin-top: 6px; font-size: 0.9rem; font-weight: 300; color: var(--muted); }
+
+  /* ---------- Profile ---------- */
+  .profile { display: grid; gap: 22px; align-content: start; }
+  .field { display: grid; gap: 8px; }
+  .field label { font-weight: 600; font-size: 1rem; color: var(--blue); }
+  input[type="search"] {
+    font: inherit; font-weight: 400; font-size: 1.05rem; color: var(--navy);
+    background-color: var(--tint); border: 0; border-bottom: 2px solid var(--blue); border-radius: 0; padding: 10px 12px; width: 100%;
+  }
+  input[type="search"]::placeholder { color: var(--muted); opacity: 1; }
+  .field .note { font-size: 0.9rem; min-height: 1.3em; }
+
+  .p-score { display: flex; align-items: flex-end; gap: 18px; flex-wrap: wrap; }
+  .p-score .big { font-size: 4.6rem; line-height: 1; font-weight: 600; color: var(--blue); }
+  .p-score .big .of { font-size: 0.3em; }
+  .p-score .meta { display: grid; gap: 2px; padding-bottom: 8px; font-weight: 400; }
+  .p-score .band { font-weight: 600; font-size: 1.15rem; display: flex; align-items: center; gap: 8px; }
+  .p-score .band i { width: 14px; height: 14px; display: inline-block; }
+
+  .comps { display: grid; gap: 16px; }
+  .comp { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; align-items: baseline; }
+  .comp .lab { font-weight: 400; font-size: 1rem; }
+  .comp .val { font-weight: 600; font-size: 1.15rem; color: var(--blue); }
+  .comp .val .of-s { font-weight: 400; font-size: 0.8em; color: var(--navy); }
+  .comp .bar { grid-column: 1 / -1; position: relative; height: 10px; background: var(--tint); }
+  .comp .fill { position: absolute; inset: 0 auto 0 0; }
+  .comp .tick { position: absolute; top: -5px; bottom: -5px; width: 4px; margin-left: -2px; background: var(--navy); border: 1px solid var(--white); }
+  .comp .foot { grid-column: 1 / -1; font-size: 0.9rem; color: var(--muted); }
+  .ukkey-line { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; font-weight: 400; color: var(--muted); }
+  .ukkey-line i { width: 4px; height: 18px; background: var(--navy); display: inline-block; }
+
+  .detail { display: grid; gap: 10px; margin: 0; }
+  .detail h3 { font-size: 1.05rem; }
+  .detail div { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--line); padding-bottom: 7px; font-size: 0.98rem; }
+  .detail dt { font-weight: 300; }
+  .detail dd { margin: 0; font-weight: 600; text-align: right; white-space: nowrap; }
+
+  /* ---------- Rankings ---------- */
+  .rank-tools { display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: end; justify-content: space-between; margin-bottom: 20px; }
+  .rank-tools .field { width: min(100%, 340px); }
+  .rank-tools p { max-width: 60ch; font-size: 1rem; }
+  .table-scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 700px; font-size: 1rem; }
+  thead th {
+    text-align: right; font-weight: 600; font-size: 0.95rem; color: var(--blue);
+    border-bottom: 2px solid var(--blue); padding: 0; vertical-align: bottom;
+  }
+  thead th:nth-child(-n+3) { text-align: left; }
+  thead th button {
+    font: inherit; color: inherit; background: none; border: 0;
+    padding: 10px 10px 10px 0; cursor: pointer; text-align: inherit; width: 100%; white-space: nowrap;
+  }
+  thead th button::after { content: ""; display: inline-block; width: 0; height: 0; margin-left: 6px; vertical-align: 2px;
+    border-left: 4px solid transparent; border-right: 4px solid transparent; }
+  thead th[aria-sort="ascending"] button::after { border-bottom: 6px solid currentColor; }
+  thead th[aria-sort="descending"] button::after { border-top: 6px solid currentColor; }
+  tbody td { padding: 9px 10px 8px 0; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  tbody td:nth-child(-n+3) { text-align: left; }
+  tbody tr { cursor: pointer; }
+  tbody tr:hover { background: var(--tint); }
+  tbody tr.is-sel { background: #e2e9f4; }
+  tbody td.rk { width: 3.2em; font-weight: 600; color: var(--blue); }
+  tbody td.sw { width: 28px; }
+  tbody td.sw i { width: 14px; height: 14px; display: block; }
+  tbody td.nm button {
+    font: inherit; font-weight: 400; color: var(--navy); background: none; border: 0; padding: 0; cursor: pointer; text-align: left;
+  }
+  tbody td.nm button:hover { text-decoration: underline; text-underline-offset: 3px; }
+  tbody td.ov { font-weight: 400; }
+  tbody .cr { font-weight: 400; }
+  .empty { padding: 16px 0; }
+
+  /* Methodology tables, set with booktabs-style rules (after the rankings table, which they override). */
+  .m-table { width: auto; min-width: 0; margin-inline: auto; border-collapse: collapse; font-size: 1.02rem; font-variant-numeric: lining-nums tabular-nums; }
+  .m-table caption { caption-side: top; text-align: left; padding-bottom: 8px; }
+  .m-table thead th { font: inherit; color: var(--navy); text-align: right; padding: 6px 0 6px 28px; vertical-align: bottom; white-space: nowrap;
+    border-top: 1.5px solid var(--navy); border-bottom: 1px solid var(--navy); }
+  .m-table tbody td { padding: 4px 0 4px 28px; border: 0; text-align: right; white-space: nowrap; }
+  .m-table thead th:first-child, .m-table tbody td:first-child { text-align: left; padding-left: 0; white-space: normal; }
+  .m-table tbody tr { cursor: auto; }
+  .m-table tbody tr:hover { background: none; }
+  .m-table tr.m-total td { border-top: 1px solid var(--navy); border-bottom: 1.5px solid var(--navy); padding-top: 6px; padding-bottom: 6px; }
+  .m-table tfoot td { padding-top: 8px; font-size: 0.92rem; color: var(--muted); text-align: left; white-space: normal; }
+
+  @media (max-width: 1080px) {
+    .map-layout { grid-template-columns: 1fr; }
+    .profile { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 40px; }
+    .profile > .field, .profile > .p-score { grid-column: 1 / -1; }
+    .m-grid { grid-template-columns: minmax(0, 1fr); }
+    .m-rail { position: static; }
+    .m-rail ol { display: flex; flex-wrap: wrap; gap: 8px; }
+    .m-rail ol::before, .m-rail ol::after { display: none; }
+    .m-rail a { padding: 4px 16px 4px 4px; border-radius: 999px; background: var(--tint); }
+    .m-n { width: 30px; height: 30px; font-size: 0.9rem; }
+  }
+  /* Wide screens: each step fills a screen and the panel settles on the step nearest the top. */
+  @media (min-width: 1081px) and (min-height: 620px) {
+    #panel-method { scroll-snap-type: y proximity; }
+    #panel-method .panel-inner, .m-step { scroll-snap-align: start; }
+    .m-step { min-height: calc(100vh - var(--bar-h, 96px) - 8px); }
+  }
+  @media (max-width: 760px) {
+    .uk-strip { grid-template-columns: 1fr; }
+    .uk-comps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .scroll-cue { font-size: 1rem; padding-right: 20px; }
+    .cta-row { grid-template-columns: 1fr; }
+    .cta { min-height: 92px; padding: 16px 24px; border-radius: 24px; }
+    .profile { grid-template-columns: 1fr; }
+    .paper { font-size: 1.1rem; }
+    .eq-m math { font-size: 1em; }
+    .eq-n { width: auto; }
+    .m-table { font-size: 0.95rem; }
+    .m-table thead th, .m-table tbody td { padding-left: 14px; }
+    .m-table thead th { white-space: normal; }
+    .eq.numbered::before { display: none; }
+    .seg { gap: 2px 16px; }
+    .panel-tools .mark { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #map path.c, #map circle.dot, .arrow, .cta, .scroll-cue, .switch::before, .switch button, .m-n, .m-rail ol::after { transition: none; }
+    .paint { animation: none; }
+    .scroll-cue .ring::before, .scroll-cue .ring::after, .scroll-cue svg { animation: none; }
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 40 16"><path d="M1 8h36M30 1.5l7 6.5-7 6.5" fill="none" stroke="currentColor" stroke-width="2.4"/></symbol>
+    <symbol id="i-down" viewBox="0 0 16 16"><path d="M3 5.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="2.2"/></symbol>
+    <symbol id="i-close" viewBox="0 0 18 18"><path d="M2 2l14 14M16 2L2 16" fill="none" stroke="currentColor" stroke-width="2.4"/></symbol>
+  </defs>
+</svg>
+
+<div id="page">
+<div class="site-head">
+  <div class="wrap">
+    <span class="site-name">Global Energy Security Index 2026</span>
+    <img class="mark" src="asi_logo_navy.svg" alt="Adam Smith Institute" width="64" height="64">
+  </div>
+</div>
+<header class="mast">
+  <div class="wrap">
+      <div class="mast-text">
+        <h1 id="headline">The UK ranks <span class="hl">41st in the world</span> and <span class="hl">5th in the G7</span> for energy security.</h1>
+        <p class="lead" id="lead">Wind, solar, tide and wave supplied 36% of the UK&rsquo;s electricity in 2024. On dispatchable electricity, which runs whatever the weather, <span class="paint">it ranks 175th of 187.</span></p>
+      </div>
+
+    <div class="uk-strip" aria-label="United Kingdom summary">
+      <div class="uk-stat">
+        <span class="big num" id="uk-score">76.4</span>
+        <span class="sub" id="uk-sub">Overall index score, out of 100. Rated borderline.</span>
+      </div>
+      <div class="uk-comps" id="uk-comps"></div>
+    </div>
+
+    <div class="cta-row">
+      <button type="button" class="cta" data-open="panel-method"><span class="cta-title">Explore the Methodology</span></button>
+      <button type="button" class="cta" data-open="panel-rank"><span class="cta-title">Explore the Full Rankings</span></button>
+    </div>
+
+    <a class="scroll-cue" id="scroll-cue" href="#heatmap"><span class="ring" aria-hidden="true"><svg><use href="#i-down"/></svg></span>See the heat map</a>
+  </div>
+</header>
+
+<main>
+  <section class="atlas" id="heatmap" aria-labelledby="map-h">
+    <div class="wrap">
+      <div class="atlas-head">
+        <h2 id="map-h" tabindex="-1">Heat map</h2>
+        <div class="panel-tools">
+          <button type="button" class="text-btn" data-open="panel-method">Methodology<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button type="button" class="text-btn" data-open="panel-rank">Full rankings<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+        </div>
+      </div>
+      <div class="toolbar">
+        <div class="seg" id="measures" role="group" aria-label="Map measure"></div>
+        <div class="zoom" role="group" aria-label="Map view">
+          <div class="seg">
+            <button type="button" id="view-world" aria-pressed="true">World</button>
+            <button type="button" id="view-europe" aria-pressed="false">Europe</button>
+          </div>
+          <button type="button" class="sq" id="zoom-in" aria-label="Zoom in">+</button>
+          <button type="button" class="sq" id="zoom-out" aria-label="Zoom out">&minus;</button>
+        </div>
+      </div>
+
+      <div class="map-layout">
+        <div>
+          <div class="map-wrap" id="map-wrap">
+            <svg id="map" role="img" aria-label="World map shaded by energy security score"></svg>
+            <div class="tip" id="tip" hidden></div>
+          </div>
+          <div class="shade-row">
+            <span class="shade-lab" id="shade-lab">Colour by</span>
+            <div class="switch" id="shade" role="group" aria-labelledby="shade-lab" data-at="score">
+              <button type="button" data-shade="score" aria-pressed="true">Index score</button>
+              <button type="button" data-shade="rank" aria-pressed="false">Ranking</button>
+            </div>
+          </div>
+          <div class="legend" id="legend"></div>
+          <p class="caption" id="caption"></p>
+          <p class="hint">Select a country to zoom in and see its profile. Drag to pan; pinch or hold Ctrl/&#8984; and scroll to zoom.</p>
+        </div>
+
+        <aside class="profile" id="profile">
+          <div class="field">
+            <label for="country-input">Country</label>
+            <input type="search" id="country-input" list="country-list" placeholder="Type a country name" autocomplete="off">
+            <datalist id="country-list"></datalist>
+            <span class="note" id="country-note" aria-live="polite"></span>
+          </div>
+          <div class="p-score" aria-live="polite">
+            <span class="big num" id="p-rank"></span>
+            <div class="meta">
+              <span class="band" id="p-band"></span>
+              <span id="p-score"></span>
+              <span id="p-vs"></span>
+            </div>
+          </div>
+          <div class="comps">
+            <div class="comps" id="p-comps"></div>
+            <p class="ukkey-line" id="p-ukkey"><i></i>United Kingdom</p>
+          </div>
+          <dl class="detail" id="p-detail"></dl>
+        </aside>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <div class="rule"></div>
+    <div class="foot-row">
+      <span>adamsmith.org</span>
+      <span class="srcs">Sources: US Energy Information Administration; CEPII BACI bilateral trade database; World Bank Worldwide Governance Indicators and GDP per capita. Unit conversions: Energy Institute, Statistical Review of World Energy 2026. Boundaries: Natural Earth.</span>
+    </div>
+  </div>
+</footer>
+</div>
+
+<!-- Methodology panel -->
+<div class="panel" id="panel-method" role="dialog" aria-modal="true" aria-labelledby="method-h" hidden>
+  <div class="panel-inner">
+    <div class="panel-bar">
+      <div class="wrap">
+        <h2 id="method-h">Methodology</h2>
+        <div class="panel-tools">
+          <button type="button" class="text-btn" data-open="panel-rank">Full rankings<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button type="button" class="text-btn" data-goto-map>Heat map<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button type="button" class="close" data-close>Close<svg aria-hidden="true"><use href="#i-close"/></svg></button>
+          <img class="mark" src="asi_logo_navy.svg" alt="" width="48" height="48">
+        </div>
+      </div>
+      <span class="m-progress" aria-hidden="true"><i id="m-progress"></i></span>
+    </div>
+    <div class="panel-body">
+      <div class="wrap method-body">
+        <p class="paper m-intro">The index scores every country on four components of energy security: dispatchability, diversity, import security and ability to pay. Each is scored from 0 to 100, and the overall index is their average. The 2026 index uses 2024 data and ranks the 187 countries and territories with a score on all four. Each step below sets out the formula, then works it through for the UK.</p>
+        <div class="m-grid">
+          <nav class="m-rail" aria-label="Steps in the calculation">
+            <ol>
+              <li><a href="#m-1"><span class="m-n">1</span><span class="m-t">Dispatchability</span></a></li>
+              <li><a href="#m-2"><span class="m-n">2</span><span class="m-t">Diversity</span></a></li>
+              <li><a href="#m-3"><span class="m-n">3</span><span class="m-t">Import security</span></a></li>
+              <li><a href="#m-4"><span class="m-n">4</span><span class="m-t">Ability to pay</span></a></li>
+              <li><a href="#m-5"><span class="m-n">5</span><span class="m-t">Overall index</span></a></li>
+            </ol>
+          </nav>
+          <div class="m-steps">
+            <section class="m-step" id="m-1" aria-labelledby="m-1-h">
+              <h3 id="m-1-h">Component 1: Dispatchability</h3>
+              <div class="paper">
+              <p>The share of a country&rsquo;s electricity that can be generated on demand, whatever the weather. Hydro, nuclear, coal, gas, oil, geothermal, biomass and waste count in full; wind, solar, and tide and wave do not.</p>
+              <div class="eq numbered"><div class="eq-m"><math display="block"><msub><mi>C</mi><mn>1</mn></msub><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><mrow><mi>G</mi><mo>−</mo><msub><mi>G</mi><mi mathvariant="normal">w</mi></msub><mo>−</mo><msub><mi>G</mi><mi mathvariant="normal">s</mi></msub><mo>−</mo><msub><mi>G</mi><mi mathvariant="normal">t</mi></msub></mrow></mrow><mrow><mi>G</mi></mrow></mfrac></math></div><span class="eq-n">(1)</span></div>
+              <p>where <math><mi>G</mi></math> is total electricity generation and <math><msub><mi>G</mi><mi mathvariant="normal">w</mi></msub></math>, <math><msub><mi>G</mi><mi mathvariant="normal">s</mi></msub></math> and <math><msub><mi>G</mi><mi mathvariant="normal">t</mi></msub></math> are generation from wind, solar, and tide and wave, all in billion kWh.</p>
+              <h4>United Kingdom, 2024</h4>
+              <p>The UK generated <math><mi>G</mi><mo>=</mo><mn>267.980</mn></math> billion kWh, of which <math><msub><mi>G</mi><mi mathvariant="normal">w</mi></msub><mo>=</mo><mn>82.855</mn></math> came from wind, <math><msub><mi>G</mi><mi mathvariant="normal">s</mi></msub><mo>=</mo><mn>14.796</mn></math> from solar and <math><msub><mi>G</mi><mi mathvariant="normal">t</mi></msub><mo>=</mo><mn>0.010</mn></math> from tide and wave, so</p>
+              <div class="eq"><div class="eq-m"><math display="block"><mtable class="al" displaystyle="true"><mtr><mtd><mrow><msub><mi>C</mi><mn>1</mn></msub></mrow></mtd><mtd><mrow><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><mrow><mn>267.980</mn><mo>−</mo><mn>82.855</mn><mo>−</mo><mn>14.796</mn><mo>−</mo><mn>0.010</mn></mrow></mrow><mrow><mn>267.980</mn></mrow></mfrac></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><mn>170.319</mn></mrow><mrow><mn>267.980</mn></mrow></mfrac><mo>=</mo><mn class="res">63.56</mn></mrow></mtd></mtr></mtable></math></div></div>
+              <p>Just under two-thirds of UK electricity was dispatchable, which ranks the UK <span data-uk-rank="s1"></span> on this component.</p>
+              </div>
+              <p class="src">Data: EIA international data, electricity net generation, 2024. EIA figures are used unmodified, except Lesotho&rsquo;s tide and wave generation, corrected to zero.</p>
+            </section>
+            <section class="m-step" id="m-2" aria-labelledby="m-2-h">
+              <h3 id="m-2-h">Component 2: Diversity</h3>
+              <div class="paper">
+              <p>How evenly a country&rsquo;s primary-energy consumption is spread across five categories: petroleum and other liquids, natural gas, coal, nuclear, and renewables and other. Concentration is measured with a Herfindahl&ndash;Hirschman index (HHI), then rescaled so that an even mix scores 100 and reliance on a single source scores 0.</p>
+              <div class="eq numbered"><div class="eq-m"><math display="block"><mi>HHI</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mn>5</mn></munderover><msubsup><mi>s</mi><mi>i</mi><mn>2</mn></msubsup></math></div><span class="eq-n">(2)</span></div>
+              <div class="eq numbered"><div class="eq-m"><math display="block"><msub><mi>C</mi><mn>2</mn></msub><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><mrow><mn>1</mn><mo>−</mo><mi>HHI</mi></mrow></mrow><mrow><mrow><mn>1</mn><mo>−</mo><mn>0.20</mn></mrow></mrow></mfrac></math></div><span class="eq-n">(3)</span></div>
+              <p>where <math><msub><mi>s</mi><mi>i</mi></msub></math> is the share of category <math><mi>i</mi></math> in primary-energy consumption. An even split of 20% each gives <math><mi>HHI</mi><mo>=</mo><mn>0.20</mn></math>; a single source gives <math><mi>HHI</mi><mo>=</mo><mn>1</mn></math>.</p>
+              <h4>United Kingdom, 2024</h4>
+              <div class="m-table-wrap">
+                <table class="m-table">
+                  <caption>Table 1. UK primary-energy consumption by source, 2024</caption>
+                  <thead><tr><th scope="col">Source</th><th scope="col">Quadrillion Btu</th><th scope="col">Share, <math><msub><mi>s</mi><mi>i</mi></msub></math></th><th scope="col"><math><msubsup><mi>s</mi><mi>i</mi><mn>2</mn></msubsup></math></th></tr></thead>
+                  <tbody>
+                    <tr><td>Petroleum and other liquids</td><td>2.8541</td><td>0.4452</td><td>0.1982</td></tr>
+                    <tr><td>Natural gas</td><td>2.3490</td><td>0.3664</td><td>0.1343</td></tr>
+                    <tr><td>Coal</td><td>0.0572</td><td>0.0089</td><td>0.0001</td></tr>
+                    <tr><td>Nuclear</td><td>0.3232</td><td>0.0504</td><td>0.0025</td></tr>
+                    <tr><td>Renewables and other</td><td>0.8270</td><td>0.1290</td><td>0.0166</td></tr>
+                    <tr class="m-total"><td>Total</td><td>6.4106</td><td>1.0000</td><td>0.3518</td></tr>
+                  </tbody>
+                  <tfoot><tr><td colspan="4">Figures are rounded; the HHI is calculated from unrounded shares.</td></tr></tfoot>
+                </table>
+              </div>
+              <p>The squared shares sum to <math><mi>HHI</mi><mo>=</mo><mn>0.3518</mn></math>, so</p>
+              <div class="eq"><div class="eq-m"><math display="block"><mtable class="al" displaystyle="true"><mtr><mtd><mrow><msub><mi>C</mi><mn>2</mn></msub></mrow></mtd><mtd><mrow><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><mrow><mn>1</mn><mo>−</mo><mn>0.3518</mn></mrow></mrow><mrow><mn>0.80</mn></mrow></mfrac></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><mn>0.6482</mn></mrow><mrow><mn>0.80</mn></mrow></mfrac><mo>=</mo><mn class="res">81.03</mn></mrow></mtd></mtr></mtable></math></div></div>
+              <p>which ranks the UK <span data-uk-rank="s2"></span> on this component.</p>
+              </div>
+              <p class="src">Data: EIA international data, primary-energy consumption, 2024.</p>
+            </section>
+            <section class="m-step" id="m-3" aria-labelledby="m-3-h">
+              <h3 id="m-3-h">Component 3: Import security</h3>
+              <div class="paper">
+              <p>How exposed a country is to imported energy. Net import dependence is weighted by a risk factor that rises when a country relies on few suppliers, when it is politically unstable itself, and when its suppliers are. A net exporter scores 100: it meets its own needs in aggregate, can re-route supply at home in a crisis, and can use its exports to help allies.</p>
+              <div class="eq numbered"><div class="eq-m"><math display="block"><mi>I</mi><mo>=</mo><mi>max</mi><mrow><mo>[</mo><mn>0</mn><mo>,</mo><mi>min</mi><mrow><mo>(</mo><mn>1</mn><mo>,</mo><mfrac><mrow><mrow><msub><mi>E</mi><mi mathvariant="normal">c</mi></msub><mo>−</mo><msub><mi>E</mi><mi mathvariant="normal">p</mi></msub></mrow></mrow><mrow><msub><mi>E</mi><mi mathvariant="normal">c</mi></msub></mrow></mfrac><mo>)</mo></mrow><mo>]</mo></mrow></math></div><span class="eq-n">(4)</span></div>
+              <div class="eq numbered"><div class="eq-m"><math display="block"><mi>H</mi><mo>=</mo><munder><mo>∑</mo><mi>j</mi></munder><msubsup><mi>s</mi><mi>j</mi><mn>2</mn></msubsup></math></div><span class="eq-n">(5)</span></div>
+              <div class="eq numbered"><div class="eq-m"><math display="block"><mi>S</mi><mo>=</mo><munder><mo>∑</mo><mi>j</mi></munder><msub><mi>s</mi><mi>j</mi></msub><msub><mi>D</mi><mi>j</mi></msub></math></div><span class="eq-n">(6)</span></div>
+              <div class="eq numbered"><div class="eq-m"><math display="block"><mi>R</mi><mo>=</mo><mn>0.40</mn><mo>+</mo><mn>0.20</mn><mi>H</mi><mo>+</mo><mn>0.20</mn><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>D</mi><mo>)</mo></mrow><mo>+</mo><mn>0.20</mn><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>S</mi><mo>)</mo></mrow></math></div><span class="eq-n">(7)</span></div>
+              <div class="eq numbered"><div class="eq-m"><math display="block"><msub><mi>C</mi><mn>3</mn></msub><mo>=</mo><mn>100</mn><mo>×</mo><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>I</mi><mspace width="0.1667em"/><mi>R</mi><mo>)</mo></mrow></math></div><span class="eq-n">(8)</span></div>
+              <p>where <math><msub><mi>E</mi><mi mathvariant="normal">c</mi></msub></math> and <math><msub><mi>E</mi><mi mathvariant="normal">p</mi></msub></math> are primary-energy consumption and production; <math><msub><mi>s</mi><mi>j</mi></msub></math> is supplier <math><mi>j</mi></math>&rsquo;s share, by value, of the country&rsquo;s imports across 31 energy categories; and <math><mi>D</mi></math> is the country&rsquo;s 2024 World Bank political stability score (WGI) divided by 100, with <math><msub><mi>D</mi><mi>j</mi></msub></math> the same for supplier <math><mi>j</mi></math>. So <math><mi>I</mi></math> is net import dependence, <math><mi>H</mi></math> the concentration of suppliers, <math><mi>S</mi></math> their import-weighted stability and <math><mi>R</mi></math> the import-risk factor. A net exporter has <math><mi>I</mi><mo>=</mo><mn>0</mn></math>.</p>
+              <h4>United Kingdom, 2024</h4>
+              <p>The UK consumed <math><msub><mi>E</mi><mi mathvariant="normal">c</mi></msub><mo>=</mo><mn>6.4106</mn></math> and produced <math><msub><mi>E</mi><mi mathvariant="normal">p</mi></msub><mo>=</mo><mn>3.5729</mn></math> quadrillion Btu (6.76 and 3.77 EJ), so</p>
+              <div class="eq"><div class="eq-m"><math display="block"><mtable class="al" displaystyle="true"><mtr><mtd><mrow><mi>I</mi></mrow></mtd><mtd><mrow><mo>=</mo><mfrac><mrow><mrow><mn>6.4106</mn><mo>−</mo><mn>3.5729</mn></mrow></mrow><mrow><mn>6.4106</mn></mrow></mfrac><mo>=</mo><mn>0.4427</mn></mrow></mtd></mtr></mtable></math></div></div>
+              <p>Its identified energy imports, worth $84.4bn, came from 115 suppliers. Norway alone supplied $26.3bn, a share of 0.3117, and the squared shares of all 115 sum to <math><mi>H</mi><mo>=</mo><mn>0.1674</mn></math>. The UK&rsquo;s own stability score gives <math><mi>D</mi><mo>=</mo><mn>0.7030</mn></math>, and its suppliers&rsquo; import-weighted score gives <math><mi>S</mi><mo>=</mo><mn>0.6937</mn></math>. Then</p>
+              <div class="eq"><div class="eq-m"><math display="block"><mtable class="al" displaystyle="true"><mtr><mtd><mrow><mi>R</mi></mrow></mtd><mtd><mrow><mo>=</mo><mn>0.40</mn><mo>+</mo><mn>0.20</mn><mrow><mo>(</mo><mn>0.1674</mn><mo>)</mo></mrow><mo>+</mo><mn>0.20</mn><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mn>0.7030</mn><mo>)</mo></mrow><mo>+</mo><mn>0.20</mn><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mn>0.6937</mn><mo>)</mo></mrow></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mo>=</mo><mn>0.5541</mn></mrow></mtd></mtr><mtr><mtd><mrow><msub><mi>C</mi><mn>3</mn></msub></mrow></mtd><mtd><mrow><mo>=</mo><mn>100</mn><mo>×</mo><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mn>0.4427</mn><mo>×</mo><mn>0.5541</mn><mo>)</mo></mrow><mo>=</mo><mn class="res">75.47</mn></mrow></mtd></mtr></mtable></math></div></div>
+              <p>which ranks the UK <span data-uk-rank="s3"></span> on this component.</p>
+              </div>
+              <p class="src">Data: EIA primary-energy production and consumption; CEPII BACI (HS2022) 2024 bilateral trade in 31 energy categories (ethanol, uranium and nuclear fuel, coal and lignite, manufactured gas, crude oil, refined petroleum, natural gas and LPG, petroleum coke, electricity, biodiesel, fuel wood, wood pellets, wood briquettes and charcoal); World Bank WGI Political Stability 2024. Import shares exclude trade recorded as &lsquo;Other Asia, nes&rsquo;, and S counts only suppliers with a WGI score. EIA puts Guyana&rsquo;s energy production at almost nothing, despite its oil exports; it is treated as a net exporter.</p>
+            </section>
+            <section class="m-step" id="m-4" aria-labelledby="m-4-h">
+              <h3 id="m-4-h">Component 4: Ability to pay</h3>
+              <div class="paper">
+              <p>GDP per capita, a proxy for a country&rsquo;s ability to pay a premium for energy in a global shortage. Net exporters are scored too: if their own production stopped, they would have to buy on the world market. Taking logarithms damps the effect of a few very rich countries, and the result is scaled between the poorest country in the dataset (0) and the richest (100).</p>
+              <div class="eq numbered"><div class="eq-m"><math display="block"><msub><mi>C</mi><mn>4</mn></msub><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><mrow><mi>ln</mi><mspace width="0.1667em"/><mi>y</mi><mo>−</mo><mi>ln</mi><mspace width="0.1667em"/><msub><mi>y</mi><mi>min</mi></msub></mrow></mrow><mrow><mrow><mi>ln</mi><mspace width="0.1667em"/><msub><mi>y</mi><mi>max</mi></msub><mo>−</mo><mi>ln</mi><mspace width="0.1667em"/><msub><mi>y</mi><mi>min</mi></msub></mrow></mrow></mfrac></math></div><span class="eq-n">(9)</span></div>
+              <p>where <math><mi>y</mi></math> is GDP per capita in constant 2015 US dollars. The lowest value in the dataset, <math><msub><mi>y</mi><mi>min</mi></msub></math>, is Burundi&rsquo;s $268.70; the highest, <math><msub><mi>y</mi><mi>max</mi></msub></math>, is Bermuda&rsquo;s $116,513.54.</p>
+              <h4>United Kingdom, 2024</h4>
+              <p>UK GDP per capita was $47,900.97, so</p>
+              <div class="eq"><div class="eq-m"><math display="block"><mtable class="al" displaystyle="true"><mtr><mtd><mrow><msub><mi>C</mi><mn>4</mn></msub></mrow></mtd><mtd><mrow><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><mrow><mi>ln</mi><mspace width="0.1667em"/><mn>47,900.97</mn><mo>−</mo><mi>ln</mi><mspace width="0.1667em"/><mn>268.70</mn></mrow></mrow><mrow><mrow><mi>ln</mi><mspace width="0.1667em"/><mn>116,513.54</mn><mo>−</mo><mi>ln</mi><mspace width="0.1667em"/><mn>268.70</mn></mrow></mrow></mfrac></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><mrow><mn>10.7769</mn><mo>−</mo><mn>5.5936</mn></mrow></mrow><mrow><mrow><mn>11.6658</mn><mo>−</mo><mn>5.5936</mn></mrow></mrow></mfrac></mrow></mtd></mtr><mtr><mtd><mrow></mrow></mtd><mtd><mrow><mo>=</mo><mn>100</mn><mo>×</mo><mfrac><mrow><mn>5.1833</mn></mrow><mrow><mn>6.0722</mn></mrow></mfrac><mo>=</mo><mn class="res">85.36</mn></mrow></mtd></mtr></mtable></math></div></div>
+              <p>which ranks the UK <span data-uk-rank="s4"></span> on this component.</p>
+              </div>
+              <p class="src">Data: World Bank GDP per capita (constant 2015 US$), 2024.</p>
+            </section>
+            <section class="m-step" id="m-5" aria-labelledby="m-5-h">
+              <h3 id="m-5-h">Overall index</h3>
+              <div class="paper">
+              <p>The four components carry equal weight:</p>
+              <div class="eq numbered"><div class="eq-m"><math display="block"><mi>Index</mi><mo>=</mo><mfrac><mrow><mrow><msub><mi>C</mi><mn>1</mn></msub><mo>+</mo><msub><mi>C</mi><mn>2</mn></msub><mo>+</mo><msub><mi>C</mi><mn>3</mn></msub><mo>+</mo><msub><mi>C</mi><mn>4</mn></msub></mrow></mrow><mrow><mn>4</mn></mrow></mfrac></math></div><span class="eq-n">(10)</span></div>
+              <h4>United Kingdom, 2024</h4>
+              <p>Taking the UK&rsquo;s component scores to four decimal places,</p>
+              <div class="eq"><div class="eq-m"><math display="block"><mtable class="al" displaystyle="true"><mtr><mtd><mrow><mi>Index</mi></mrow></mtd><mtd><mrow><mo>=</mo><mfrac><mrow><mrow><mn>63.5567</mn><mo>+</mo><mn>81.0308</mn><mo>+</mo><mn>75.4706</mn><mo>+</mo><mn>85.3615</mn></mrow></mrow><mrow><mn>4</mn></mrow></mfrac><mo>=</mo><mn class="res">76.35</mn></mrow></mtd></mtr></mtable></math></div></div>
+              <p>which ranks the UK <span data-uk-rank="overall"></span>.</p>
+              <p>On the heat map, scores fall into fixed ten-point bands applied to every country: Most secure 90&ndash;100, Moderately secure 80&ndash;89.9, Borderline 70&ndash;79.9, Moderately insecure 60&ndash;69.9 and Most insecure below 60.</p>
+              <h4>Units</h4>
+              <p>Index inputs follow EIA units. The Energy Institute equivalents above use the conversion factors in the <em>Statistical Review of World Energy 2026</em>:</p>
+              <ul class="m-units">
+                <li>1 exajoule (EJ) = 948 trillion Btu, so 1 quadrillion Btu &asymp; 1.055 EJ</li>
+                <li>1 billion kWh = 1 terawatt-hour (TWh); 1 EJ &asymp; 278 TWh</li>
+                <li>1 kWh = 3,412 Btu = 3,600 kJ</li>
+                <li>1 billion m&sup3; natural gas = 36 PJ = 0.86 million toe</li>
+              </ul>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Rankings panel -->
+<div class="panel" id="panel-rank" role="dialog" aria-modal="true" aria-labelledby="rank-h" hidden>
+  <div class="panel-inner">
+    <div class="panel-bar">
+      <div class="wrap">
+        <h2 id="rank-h">Full rankings</h2>
+        <div class="panel-tools">
+          <button type="button" class="text-btn" data-open="panel-method">Methodology<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button type="button" class="text-btn" data-goto-map>Heat map<svg class="arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <button type="button" class="close" data-close>Close<svg aria-hidden="true"><use href="#i-close"/></svg></button>
+          <img class="mark" src="asi_logo_navy.svg" alt="" width="48" height="48">
+        </div>
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="wrap">
+        <div class="rank-tools">
+          <p>All <span id="rank-n">187</span> countries and territories in rank order. Component columns show each country&rsquo;s rank on that component. Select a column heading to sort, or a country to open it on the heat map.</p>
+          <div class="field">
+            <label for="rank-search">Find a country</label>
+            <input type="search" id="rank-search" placeholder="Type a country name" autocomplete="off">
+          </div>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <caption class="sr-only">Global Energy Security Index 2026 rankings, 2024 data.</caption>
+            <thead><tr id="thead-row"></tr></thead>
+            <tbody id="tbody"></tbody>
+          </table>
+          <p class="empty" id="rank-empty" hidden>No country matches that name.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/dist/topojson-client.min.js"></script>
+<script src="data.js"></script>
+<script src="world.js"></script>
+<script>
+(function () {
+  "use strict";
+  const ESI = window.ESI;
+  const C = ESI.countries;
+  const N = C.length;
+  const byIso = new Map(C.map(c => [c.iso3, c]));
+  const byId = new Map(C.map(c => [c.id, c]));
+  const UK = byIso.get("GBR");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const $ = id => document.getElementById(id);
+
+  const MEASURES = [
+    { key: "overall", label: "Overall index",
+      desc: "Mean of the four component scores, each weighted 25%." },
+    { key: "s1", label: "Dispatchability",
+      desc: "Share of electricity generation from dispatchable sources: everything except wind, solar, and tide and wave." },
+    { key: "s2", label: "Diversity",
+      desc: "Spread of primary-energy consumption across oil, gas, coal, nuclear and renewables, scored from its concentration (HHI)." },
+    { key: "s3", label: "Import security",
+      desc: "Net import dependence, weighted by supplier concentration and by the political stability of the country and its suppliers. Net exporters share first place." },
+    { key: "s4", label: "Ability to pay",
+      desc: "Log of GDP per capita (constant 2015 US$): a country’s ability to pay a premium for energy in a global shortage." }
+  ];
+  const COMPS = MEASURES.slice(1);
+
+  const BANDS = [
+    { min: 90, label: "Most secure", hex: "#1a9850", range: "90–100" },
+    { min: 80, label: "Moderately secure", hex: "#91cf60", range: "80–89.9" },
+    { min: 70, label: "Borderline", hex: "#fee08b", range: "70–79.9" },
+    { min: 60, label: "Moderately insecure", hex: "#fc8d59", range: "60–69.9" },
+    { min: -Infinity, label: "Most insecure", hex: "#d73027", range: "below 60" }
+  ];
+  const band = v => BANDS.find(b => v >= b.min);
+  // Ranking view: a continuous red-to-green ramp through the same five colours, 1st to last.
+  const RAMP_HEX = BANDS.map(b => b.hex).reverse();
+  const RAMP = d3.piecewise(d3.interpolateRgb, RAMP_HEX);
+
+  // Rank of every country on every measure; ties share a rank.
+  const RANK = {};
+  MEASURES.forEach(m => {
+    RANK[m.key] = new Map();
+    C.forEach(c => {
+      const v = c[m.key];
+      let above = 0, same = 0;
+      C.forEach(o => { if (o[m.key] > v + 1e-9) above++; else if (Math.abs(o[m.key] - v) <= 1e-9) same++; });
+      RANK[m.key].set(c.iso3, { rank: above + 1, tied: same > 1 });
+    });
+  });
+  // Position in the ranking: 1 for 1st, 0 for last.
+  const rankPos = (key, iso) => N > 1 ? 1 - (RANK[key].get(iso).rank - 1) / (N - 1) : 1;
+  const sfx = n => { const s = ["th", "st", "nd", "rd"], v = n % 100; return s[(v - 20) % 10] || s[v] || s[0]; };
+  const ord = n => n + sfx(n);
+  const rankShort = (key, iso) => { const r = RANK[key].get(iso); return (r.tied ? "=" : "") + ord(r.rank); };
+  const rankText = (key, iso) => rankShort(key, iso) + " of " + N;
+  const rankHTML = (key, iso) => { const r = RANK[key].get(iso); return (r.tied ? "=" : "") + r.rank + '<span class="sfx">' + sfx(r.rank) + "</span>"; };
+  const bigRank = (key, iso) => rankHTML(key, iso) + ' <span class="of">of ' + N + "</span>";
+  const placesVsUK = (key, iso) => {
+    const d = RANK[key].get("GBR").rank - RANK[key].get(iso).rank;
+    if (!d) return "Level with the UK";
+    const n = Math.abs(d);
+    return n + (n === 1 ? " place " : " places ") + (d > 0 ? "above" : "below") + " the UK";
+  };
+  const f1 = v => v.toFixed(1);
+
+  let measure = "overall";
+  let selected = "GBR";
+  let pendingZoom = null;
+  let busy = 0;
+  let hashIso = null;
+  try {
+    const h = decodeURIComponent((location.hash || "").slice(1)).toUpperCase();
+    if (byIso.has(h)) { selected = h; hashIso = h; }
+  } catch (e) {}
+
+  /* ---------- Masthead ---------- */
+  function renderMast() {
+    const g7 = ["USA", "CAN", "FRA", "DEU", "ITA", "JPN", "GBR"].filter(i => byIso.has(i))
+      .sort((a, b) => byIso.get(b).overall - byIso.get(a).overall);
+    const at = g7.indexOf("GBR") + 1;
+    $("headline").innerHTML = 'The UK ranks <span class="hl">' + rankShort("overall", "GBR") + ' in the world</span> and <span class="hl">' +
+      ord(at) + (g7.length === 7 ? " in the G7" : " of the " + g7.length + " G7 economies scored") + "</span> for energy security.";
+    const weakest = COMPS.slice().sort((a, b) => RANK[b.key].get("GBR").rank - RANK[a.key].get("GBR").rank)[0];
+    $("lead").innerHTML = weakest.key === "s1"
+      ? "Wind, solar, tide and wave supplied " + Math.round(100 - UK.s1) + "% of the UK’s electricity in " + ESI.dataYear +
+        '. On dispatchable electricity, which runs whatever the weather, <span class="paint">it ranks ' + rankText("s1", "GBR") + ".</span>"
+      : "Its weakest component is " + weakest.label.toLowerCase() + ', where <span class="paint">the UK ranks ' + rankText(weakest.key, "GBR") + ".</span>";
+    $("uk-score").textContent = f1(UK.overall);
+    $("uk-sub").textContent = "Overall index score, out of 100. Rated " + band(UK.overall).label.toLowerCase() + ".";
+    $("rank-n").textContent = N;
+    document.querySelectorAll("[data-uk-rank]").forEach(e => { e.textContent = rankText(e.dataset.ukRank, "GBR"); });
+    $("uk-comps").innerHTML = COMPS.map(m =>
+      '<div class="uk-comp"><span class="k">' + m.label + '</span><span class="v num">' + rankHTML(m.key, "GBR") +
+      '</span><span class="r">of ' + N + "</span></div>").join("");
+  }
+
+  /* ---------- Map ---------- */
+  const W = 960;
+  const features = topojson.feature(WORLD, WORLD.objects.countries).features;
+  // A code can label two shapes (Australia and its Ashmore and Cartier Islands): the larger is the country.
+  const featById = new Map();
+  features.forEach(d => {
+    if (d.id && (!featById.has(d.id) || d3.geoArea(d) > d3.geoArea(featById.get(d.id)))) featById.set(d.id, d);
+  });
+  const fc = { type: "FeatureCollection", features };
+  const projection = d3.geoNaturalEarth1().fitWidth(W - 8, fc);
+  const path = d3.geoPath(projection);
+  const [[, by0], [, by1]] = path.bounds(fc);
+  const H = Math.ceil(by1 - by0 + 8);
+  projection.translate([projection.translate()[0] + 4, projection.translate()[1] - by0 + 4]);
+
+  const svg = d3.select("#map").attr("viewBox", "0 0 " + W + " " + H);
+  const defs = svg.append("defs");
+  const hatch = defs.append("pattern").attr("id", "nodata").attr("patternUnits", "userSpaceOnUse")
+    .attr("width", 6).attr("height", 6).attr("patternTransform", "rotate(45)");
+  hatch.append("rect").attr("width", 6).attr("height", 6).attr("fill", "#bcc2cc");
+  hatch.append("rect").attr("width", 3).attr("height", 6).attr("fill", "#d3d7de");
+
+  // Soft drop shadow that lifts the selected country off the map; rescaled on zoom.
+  const lift = defs.append("filter").attr("id", "lift")
+    .attr("x", "-60%").attr("y", "-60%").attr("width", "220%").attr("height", "220%");
+  const liftShadow = lift.append("feDropShadow")
+    .attr("dx", 0).attr("dy", 2.5).attr("stdDeviation", 3.5)
+    .attr("flood-color", "#1b2a4a").attr("flood-opacity", 0.5);
+
+  const g = svg.append("g");
+  const wrap = $("map-wrap");
+  const tip = $("tip");
+  // "Index score" always means the overall index score in its fixed bands. Components have no
+  // public score, so they are shaded by rank only.
+  let shade = "score";
+  let shadePref = "score";
+  const colourOf = c => shade === "rank" ? RAMP(rankPos(measure, c.iso3)) : band(c.overall).hex;
+  const fillFor = c => c ? colourOf(c) : "url(#nodata)";
+
+  const dOf = new Map(features.map(f => [f, path(f)]));
+  const paths = g.selectAll("path.c").data(features).join("path")
+    .attr("class", d => "c" + (byId.has(d.id) ? " scored" : ""))
+    .attr("d", d => dOf.get(d));
+
+  // Small scored countries get a marker so they can be seen and clicked. Island groups that
+  // straddle the date line (Fiji, Kiribati) are marked on their largest island, since the
+  // centroid of parts drawn at both map edges falls in the wrong ocean.
+  const markAt = d => {
+    const b = path.bounds(d);
+    if (b[1][0] - b[0][0] < W / 2) return path.centroid(d);
+    const polys = d.geometry.type === "Polygon" ? [d.geometry.coordinates] : d.geometry.coordinates;
+    return path.centroid(polys.map(c => ({ type: "Polygon", coordinates: c }))
+      .reduce((m, p) => path.area(p) > path.area(m) ? p : m));
+  };
+  const small = features.filter(d => byId.has(d.id) && featById.get(d.id) === d && path.area(d) < 14);
+  const smallIds = new Set(small.map(d => d.id));
+  const dots = g.selectAll("circle.dot").data(small).join("circle")
+    .attr("class", "dot").attr("r", 4)
+    .attr("cx", d => markAt(d)[0]).attr("cy", d => markAt(d)[1]);
+
+  const liftPath = g.append("path").attr("class", "lift").attr("filter", "url(#lift)");
+  const liftDot = g.append("circle").attr("class", "lift").attr("filter", "url(#lift)").attr("r", 5.5).attr("display", "none");
+  const hovPath = g.append("path").attr("class", "hov");
+
+  function paint() {
+    paths.attr("fill", d => fillFor(byId.get(d.id)));
+    dots.attr("fill", d => fillFor(byId.get(d.id)));
+    const fill = colourOf(byIso.get(selected));
+    liftPath.attr("fill", fill);
+    liftDot.attr("fill", fill);
+  }
+
+  function showTip(ev, d) {
+    const c = byId.get(d.id);
+    const name = c ? c.name : (d.properties && d.properties.name) || "";
+    if (!name) return;
+    const m = MEASURES.find(x => x.key === measure);
+    tip.innerHTML = c
+      ? "<b>" + name + "</b>" + m.label + '<span class="t-rank num"><i style="background:' + colourOf(c) + '"></i>' +
+        bigRank(measure, c.iso3) + "</span>" + (measure === "overall" ? "Index score " + f1(c.overall) + " · " + band(c.overall).label : "")
+      : "<b>" + name + "</b>Not scored in the 2026 index";
+    tip.hidden = false;
+    const [x, y] = d3.pointer(ev, wrap);
+    const tw = tip.offsetWidth, th = tip.offsetHeight, ww = wrap.clientWidth;
+    let left = x + 16, top = y - th - 12;
+    if (left + tw > ww) left = x - tw - 16;
+    if (left < 0) left = 0;
+    if (top < 0) top = y + 18;
+    tip.style.transform = "translate(" + left + "px," + top + "px)";
+  }
+  const hideTip = () => { tip.hidden = true; hovPath.attr("d", null); };
+
+  [paths, dots].forEach(s => s
+    .on("pointerenter", (ev, d) => { if (s === paths) hovPath.attr("d", dOf.get(d)); })
+    .on("pointermove", showTip)
+    .on("pointerleave", hideTip)
+    .on("click", (ev, d) => { if (byId.has(d.id)) select(byId.get(d.id).iso3, { zoom: true }); }));
+
+  let zoomK = 1;
+  const zoom = d3.zoom()
+    .scaleExtent([1, 14])
+    .translateExtent([[0, 0], [W, H]])
+    // The map sits in the page, so plain scrolling and one-finger swipes scroll the page:
+    // zoom needs Ctrl/Cmd + wheel or a pinch, and one finger pans only once zoomed in.
+    .filter(ev => ev.type === "wheel" ? (ev.ctrlKey || ev.metaKey)
+      : ev.type.startsWith("touch") ? (ev.touches.length > 1 || zoomK > 1) : !ev.button)
+    .on("zoom", ev => {
+      zoomK = ev.transform.k;
+      g.attr("transform", ev.transform);
+      dots.attr("r", 4 / Math.sqrt(zoomK));
+      liftDot.attr("r", 5.5 / Math.sqrt(zoomK));
+      liftShadow.attr("dy", 2.5 / zoomK).attr("stdDeviation", 3.5 / zoomK);
+      hatch.attr("patternTransform", "rotate(45) scale(" + (1 / zoomK) + ")");
+      hideTip();
+    });
+  svg.call(zoom).on("dblclick.zoom", null);
+
+  const run = (ms) => reduceMotion ? svg : svg.transition().duration(ms).ease(d3.easeCubicInOut);
+  const fitBox = (x0, y0, x1, y1, fill, maxK) => {
+    const k = Math.max(1, Math.min(maxK, fill / Math.max((x1 - x0) / W, (y1 - y0) / H)));
+    return d3.zoomIdentity.translate(W / 2 - k * (x0 + x1) / 2, H / 2 - k * (y0 + y1) / 2).scale(k);
+  };
+
+  function geoBox(lon0, lat0, lon1, lat1) {
+    const P = [];
+    for (let i = 0; i <= 24; i++) {
+      const t = i / 24;
+      P.push(projection([lon0 + (lon1 - lon0) * t, lat0]), projection([lon0 + (lon1 - lon0) * t, lat1]),
+             projection([lon0, lat0 + (lat1 - lat0) * t]), projection([lon1, lat0 + (lat1 - lat0) * t]));
+    }
+    const xs = P.map(p => p[0]), ys = P.map(p => p[1]);
+    return fitBox(Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys), 0.96, 14);
+  }
+  const EUROPE = geoBox(-25, 34, 45, 71);
+
+  // Frame a country on its main landmass plus nearby or large parts, so overseas territories,
+  // islands across the antimeridian and remote specks (Macquarie Island for Australia, the
+  // Prince Edward Islands for South Africa) do not zoom the map out.
+  function countryView(feat) {
+    const geo = feat.geometry;
+    const polys = geo.type === "Polygon" ? [geo.coordinates] : geo.coordinates;
+    const parts = polys.map(coords => {
+      const f = { type: "Polygon", coordinates: coords };
+      return { a: path.area(f), b: path.bounds(f), c: path.centroid(f) };
+    }).filter(p => isFinite(p.a)).sort((p, q) => q.a - p.a);
+    const main = parts[0];
+    const reach = 1.2 * Math.max(20, Math.hypot(main.b[1][0] - main.b[0][0], main.b[1][1] - main.b[0][1]));
+    let [[x0, y0], [x1, y1]] = main.b;
+    parts.slice(1).forEach(p => {
+      const near = Math.hypot(p.c[0] - main.c[0], p.c[1] - main.c[1]) <= (p.a < 0.001 * main.a ? reach * 0.5 / 1.2 : reach);
+      const wide = p.b[1][0] - p.b[0][0] > W * 0.5;
+      if (!wide && (p.a >= 0.25 * main.a || near)) {
+        x0 = Math.min(x0, p.b[0][0]); y0 = Math.min(y0, p.b[0][1]);
+        x1 = Math.max(x1, p.b[1][0]); y1 = Math.max(y1, p.b[1][1]);
+      }
+    });
+    return fitBox(x0, y0, x1, y1, 0.5, 12);
+  }
+
+  const vw = $("view-world"), ve = $("view-europe");
+  function pressView(which) {
+    vw.setAttribute("aria-pressed", String(which === "world"));
+    ve.setAttribute("aria-pressed", String(which === "europe"));
+  }
+  vw.addEventListener("click", () => { pressView("world"); run(700).call(zoom.transform, d3.zoomIdentity); });
+  ve.addEventListener("click", () => { pressView("europe"); run(700).call(zoom.transform, EUROPE); });
+  $("zoom-in").addEventListener("click", () => { pressView(null); run(300).call(zoom.scaleBy, 1.6); });
+  $("zoom-out").addEventListener("click", () => { pressView(null); run(300).call(zoom.scaleBy, 1 / 1.6); });
+
+  function zoomTo(iso) {
+    const feat = featById.get(byIso.get(iso).id);
+    if (!feat) return;
+    pressView(null);
+    run(900).call(zoom.transform, countryView(feat));
+  }
+
+  /* ---------- Measure toggle + legend ---------- */
+  const mEl = $("measures");
+  mEl.innerHTML = MEASURES.map(m =>
+    '<button type="button" data-key="' + m.key + '" aria-pressed="' + (m.key === measure) + '">' + m.label + "</button>").join("");
+  const shadeEl = $("shade");
+  function setShade() {
+    shade = measure === "overall" ? shadePref : "rank";
+    shadeEl.dataset.at = shade;
+    shadeEl.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.shade === shade)));
+  }
+  function setMeasure(key) {
+    measure = key;
+    mEl.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.key === key)));
+    setShade(); paint(); renderLegend();
+  }
+  mEl.addEventListener("click", ev => {
+    const b = ev.target.closest("button[data-key]");
+    if (b) setMeasure(b.dataset.key);
+  });
+
+  function renderLegend() {
+    const none = '<span><i class="none"></i>Not scored</span>';
+    $("legend").innerHTML = shade === "rank"
+      ? '<span class="ramp-key"><span class="num">1st</span><i class="ramp" style="background:linear-gradient(90deg,' +
+        RAMP_HEX.slice().reverse().join(",") + ')"></i><span class="num">' + ord(N) + "</span></span>" + none
+      : BANDS.map(b => '<span><i style="background:' + b.hex + '"></i>' + b.label + ' <span class="n num">' + b.range + "</span></span>").join("") + none;
+    const m = MEASURES.find(x => x.key === measure);
+    $("caption").textContent = m.label + ": " + m.desc + (shade === "rank"
+      ? " Shaded by rank, from 1st (green) to " + ord(N) + " (red); tied countries share a shade."
+      : " Shaded by index score in fixed ten-point bands.");
+    $("map").setAttribute("aria-label", "World map shaded red to green by " + m.label.toLowerCase() +
+      (shade === "rank" ? " rank" : " score") + ". The full rankings list every value.");
+  }
+  // On a component, "Index score" returns the map to the overall index.
+  shadeEl.addEventListener("click", ev => {
+    const b = ev.target.closest("button[data-shade]");
+    if (!b || b.dataset.shade === shade) return;
+    shadePref = b.dataset.shade;
+    if (shadePref === "score" && measure !== "overall") { setMeasure("overall"); return; }
+    setShade(); paint(); renderLegend();
+  });
+
+  /* ---------- Profile ---------- */
+  const cInput = $("country-input"), cNote = $("country-note");
+  const sortedNames = C.slice().sort((a, b) => a.name.localeCompare(b.name));
+  $("country-list").innerHTML = sortedNames.map(c => '<option value="' + c.name + '"></option>').join("");
+  const findCountry = (q, loose) => {
+    q = q.trim().toLowerCase();
+    if (!q) return null;
+    return sortedNames.find(c => c.name.toLowerCase() === q || c.iso3.toLowerCase() === q) ||
+      (loose ? sortedNames.find(c => c.name.toLowerCase().startsWith(q)) || sortedNames.find(c => c.name.toLowerCase().includes(q)) : null);
+  };
+  cInput.addEventListener("focus", () => cInput.select());
+  cInput.addEventListener("input", () => {
+    cNote.textContent = "";
+    const c = findCountry(cInput.value, false);
+    if (c && c.iso3 !== selected) select(c.iso3, { zoom: true });
+  });
+  cInput.addEventListener("keydown", ev => {
+    if (ev.key !== "Enter") return;
+    ev.preventDefault();
+    const c = findCountry(cInput.value, true);
+    if (c) select(c.iso3, { zoom: true });
+    else cNote.textContent = "No scored country matches “" + cInput.value.trim() + "”.";
+  });
+  cInput.addEventListener("blur", () => { if (!findCountry(cInput.value, false)) cInput.value = byIso.get(selected).name; });
+
+  function renderProfile() {
+    const c = byIso.get(selected);
+    const isUK = c.iso3 === "GBR";
+    if (document.activeElement !== cInput) cInput.value = c.name;
+    $("p-rank").innerHTML = bigRank("overall", c.iso3);
+    $("p-band").innerHTML = '<i style="background:' + band(c.overall).hex + '"></i>' + band(c.overall).label;
+    $("p-score").textContent = "Index score " + f1(c.overall);
+    $("p-vs").textContent = isUK ? "" : placesVsUK("overall", c.iso3);
+    $("p-comps").innerHTML = COMPS.map(m => {
+      const at = rankPos(m.key, c.iso3);
+      return '<div class="comp"><span class="lab">' + m.label + '</span><span class="val num">' + rankShort(m.key, c.iso3) +
+        ' <span class="of-s">of ' + N + "</span></span>" +
+        '<div class="bar"><span class="fill" style="width:' + Math.max(2, at * 100) + "%;background:" + RAMP(at) + '"></span>' +
+        (isUK ? "" : '<span class="tick" style="left:' + rankPos(m.key, "GBR") * 100 + '%"></span>') + "</div>" +
+        (isUK ? "" : '<span class="foot">' + placesVsUK(m.key, c.iso3) + "</span>") + "</div>";
+    }).join("");
+    $("p-ukkey").hidden = isUK;
+    $("p-detail").innerHTML =
+      "<h3>Inputs</h3>" +
+      '<div><dt>Import-partner concentration (HHI)</dt><dd class="num">' + c.hhi.toFixed(3) + "</dd></div>" +
+      '<div><dt>Domestic political stability</dt><dd class="num">' + f1(c.wgiDom) + "</dd></div>" +
+      '<div><dt>Supplier political stability</dt><dd class="num">' + f1(c.wgiSup) + "</dd></div>" +
+      '<div><dt>Energy suppliers</dt><dd class="num">' + (c.suppliers ?? "–") + "</dd></div>" +
+      '<div><dt>GDP per capita (2015 US$)</dt><dd class="num">$' + Math.round(c.gdppc).toLocaleString("en-GB") + "</dd></div>" +
+      '<div><dt>Partner / supplier-WGI coverage</dt><dd class="num">' + Math.floor(c.covPartner * 10) / 10 + "% / " + Math.floor(c.covWgi * 10) / 10 + "%</dd></div>";
+  }
+
+  function select(iso, opts) {
+    opts = opts || {};
+    selected = iso;
+    const c = byIso.get(iso);
+    const feat = featById.get(c.id);
+    liftPath.attr("d", feat ? dOf.get(feat) : null);
+    if (feat && smallIds.has(c.id)) {
+      const [cx, cy] = markAt(feat);
+      liftDot.attr("cx", cx).attr("cy", cy).attr("display", null);
+    } else liftDot.attr("display", "none");
+    paint();
+    renderProfile();
+    document.querySelectorAll("#tbody tr").forEach(tr => tr.classList.toggle("is-sel", tr.dataset.iso === iso));
+    if (opts.zoom) {
+      try { history.replaceState(null, "", "#" + iso); } catch (e) {}
+      pendingZoom = iso; settle();
+    }
+  }
+
+  /* ---------- Rankings table ---------- */
+  const COLS = [
+    { key: "rank", label: "Rank", num: true, asc: true },
+    { key: "sw", label: "", sortable: false },
+    { key: "name", label: "Country" },
+    { key: "overall", label: "Score", num: true },
+    { key: "s1", label: "Dispatchability", comp: true, asc: true },
+    { key: "s2", label: "Diversity", comp: true, asc: true },
+    { key: "s3", label: "Import security", comp: true, asc: true },
+    { key: "s4", label: "Ability to pay", comp: true, asc: true }
+  ];
+  let sortKey = "rank", sortAsc = true, query = "";
+  const theadRow = $("thead-row");
+  theadRow.innerHTML = COLS.map(col => col.sortable === false
+    ? '<th scope="col"><span class="sr-only">Band</span></th>'
+    : '<th scope="col" data-key="' + col.key + '"><button type="button">' + col.label + "</button></th>").join("");
+  theadRow.addEventListener("click", ev => {
+    const th = ev.target.closest("th[data-key]");
+    if (!th) return;
+    const k = th.dataset.key;
+    const col = COLS.find(x => x.key === k);
+    if (sortKey === k) sortAsc = !sortAsc; else { sortKey = k; sortAsc = !!col.asc || (!col.num && !col.comp); }
+    renderTable();
+  });
+  $("rank-search").addEventListener("input", ev => { query = ev.target.value.trim().toLowerCase(); renderTable(); });
+
+  function renderTable() {
+    theadRow.querySelectorAll("th[data-key]").forEach(th =>
+      th.setAttribute("aria-sort", th.dataset.key === sortKey ? (sortAsc ? "ascending" : "descending") : "none"));
+    const rows = C.filter(c => !query || c.name.toLowerCase().includes(query));
+    const dir = sortAsc ? 1 : -1;
+    rows.sort((a, b) => {
+      if (sortKey === "name") return dir * a.name.localeCompare(b.name);
+      const d = RANK[sortKey] && sortKey !== "overall"
+        ? RANK[sortKey].get(a.iso3).rank - RANK[sortKey].get(b.iso3).rank
+        : a[sortKey] - b[sortKey];
+      return d ? dir * d : a.rank - b.rank;
+    });
+    $("rank-empty").hidden = rows.length > 0;
+    $("tbody").innerHTML = rows.map(c =>
+      '<tr data-iso="' + c.iso3 + '" class="' + (c.iso3 === selected ? "is-sel" : "") + '">' +
+      '<td class="rk num">' + c.rank + "</td>" +
+      '<td class="sw"><i style="background:' + band(c.overall).hex + '"></i></td>' +
+      '<td class="nm"><button type="button">' + c.name + "</button></td>" +
+      '<td class="ov num">' + f1(c.overall) + "</td>" +
+      COMPS.map(m => '<td class="num cr">' + rankShort(m.key, c.iso3) + "</td>").join("") + "</tr>").join("");
+  }
+  $("tbody").addEventListener("click", ev => {
+    const tr = ev.target.closest("tr[data-iso]");
+    if (!tr) return;
+    select(tr.dataset.iso, { zoom: true });
+    goToMap();
+  });
+
+  /* ---------- Expanding panels ---------- */
+  const page = $("page");
+  const stack = [];
+  const GROUND = "#ffffff";
+  const insetOf = r => {
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const t = Math.max(0, r.top), l = Math.max(0, r.left);
+    const b = Math.max(0, vh - r.bottom), rt = Math.max(0, vw - r.right);
+    return { t, r: rt, b, l, css: "inset(" + t + "px " + rt + "px " + b + "px " + l + "px)" };
+  };
+  const visible = el => el && el.isConnected && el.getClientRects().length > 0;
+
+  function syncInert() {
+    page.inert = stack.length > 0;
+    stack.forEach((s, i) => { s.panel.inert = i !== stack.length - 1; });
+    document.documentElement.style.overflow = stack.length ? "hidden" : "";
+  }
+
+  // Map zooms wait until every panel has closed and no animation is running.
+  function settle() {
+    if (busy || !pendingZoom || stack.length) return;
+    const iso = pendingZoom; pendingZoom = null; zoomTo(iso);
+  }
+
+  const mapSec = $("heatmap"), cue = $("scroll-cue");
+  const toMap = smooth => mapSec.scrollIntoView({ behavior: smooth && !reduceMotion ? "smooth" : "auto", block: "start" });
+  // From a panel: fade every panel out over the map, which is scrolled into place beneath them.
+  function goToMap() {
+    for (let n = stack.length; n > 0; n--) closeTop(true);
+    toMap(false);
+  }
+  cue.addEventListener("click", ev => { ev.preventDefault(); toMap(true); });
+
+  function openPanel(id, origin) {
+    const panel = $(id);
+    const at = stack.findIndex(s => s.panel === panel);
+    if (at > -1) { while (stack.length - 1 > at) closeTop(); return; }
+    panel.hidden = false;
+    panel.style.zIndex = String(50 + stack.length);
+    panel.scrollTop = 0;
+    stack.push({ panel, origin });
+    syncInert();
+    hideTip();
+    const focusClose = () => { const b = panel.querySelector("[data-close]"); if (b) b.focus({ preventScroll: true, focusVisible: false }); };
+    if (reduceMotion || !visible(origin) || !panel.animate) { focusClose(); settle(); return; }
+
+    // Swoop: the clicked control stretches across the screen, then grows to fill it.
+    const r = origin.getBoundingClientRect();
+    const from = insetOf(r);
+    const rad = parseFloat(getComputedStyle(origin).borderTopLeftRadius) || 0;
+    const mid = "inset(" + from.t * 0.55 + "px 0px " + from.b * 0.55 + "px 0px round " + rad * 0.5 + "px)";
+    const bg = getComputedStyle(origin).backgroundColor;
+    const startBg = bg && bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent" ? bg : "#e2e9f4";
+    busy++;
+    const inner = panel.querySelector(".panel-inner");
+    const grow = panel.animate([
+      { clipPath: from.css.replace(")", " round " + rad + "px)"), backgroundColor: startBg },
+      { clipPath: mid, backgroundColor: GROUND, offset: 0.5 },
+      { clipPath: "inset(0px 0px 0px 0px round 0px)", backgroundColor: GROUND }
+    ], { duration: 820, easing: "cubic-bezier(0.65, 0, 0.35, 1)" });
+    inner.animate([
+      { opacity: 0, transform: "translateY(32px)" },
+      { opacity: 1, transform: "none" }
+    ], { duration: 460, delay: 440, easing: "cubic-bezier(0.2, 0.7, 0.2, 1)", fill: "backwards" });
+    grow.finished.catch(() => {}).then(() => { busy--; focusClose(); settle(); });
+  }
+
+  function closeTop(fade) {
+    const top = stack.pop();
+    if (!top) return;
+    const { panel, origin } = top;
+    const done = () => {
+      panel.hidden = true;
+      panel.getAnimations().forEach(a => a.cancel());
+      panel.querySelector(".panel-inner").getAnimations().forEach(a => a.cancel());
+      if (fade) { if (!stack.length) $("map-h").focus({ preventScroll: true }); }
+      else if (visible(origin)) origin.focus({ preventScroll: true });
+      settle();
+    };
+    syncInert();
+    if (reduceMotion || !panel.animate || (!fade && !visible(origin))) { done(); return; }
+    if (fade) {
+      busy++;
+      panel.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 280, easing: "ease-out", fill: "forwards" })
+        .finished.catch(() => {}).then(() => { busy--; done(); });
+      return;
+    }
+    const to = insetOf(origin.getBoundingClientRect());
+    const rad = parseFloat(getComputedStyle(origin).borderTopLeftRadius) || 0;
+    const bg = getComputedStyle(origin).backgroundColor;
+    const endBg = bg && bg !== "rgba(0, 0, 0, 0)" && bg !== "transparent" ? bg : "#e2e9f4";
+    busy++;
+    panel.querySelector(".panel-inner").animate([{ opacity: 1 }, { opacity: 0 }], { duration: 200, fill: "forwards" });
+    const shrink = panel.animate([
+      { clipPath: "inset(0px 0px 0px 0px round 0px)", backgroundColor: GROUND },
+      { clipPath: "inset(" + to.t * 0.55 + "px 0px " + to.b * 0.55 + "px 0px round " + rad * 0.5 + "px)", backgroundColor: GROUND, offset: 0.5 },
+      { clipPath: to.css.replace(")", " round " + rad + "px)"), backgroundColor: endBg }
+    ], { duration: 620, easing: "cubic-bezier(0.65, 0, 0.35, 1)", fill: "forwards" });
+    shrink.finished.catch(() => {}).then(() => { busy--; done(); });
+  }
+
+  document.addEventListener("click", ev => {
+    const o = ev.target.closest("[data-open]");
+    if (o) { openPanel(o.dataset.open, o); return; }
+    if (ev.target.closest("[data-goto-map]")) { goToMap(); return; }
+    if (ev.target.closest("[data-close]")) closeTop();
+  });
+  document.addEventListener("keydown", ev => { if (ev.key === "Escape" && stack.length && !busy) closeTop(); });
+
+  /* ---------- Methodology steps ---------- */
+  const mPanel = $("panel-method"), mBar = mPanel.querySelector(".panel-bar");
+  const mSteps = [...mPanel.querySelectorAll(".m-step")];
+  const mLinks = [...mPanel.querySelectorAll(".m-rail a")];
+  const mList = mPanel.querySelector(".m-rail ol");
+  const mProg = $("m-progress");
+  const mEqs = [...mPanel.querySelectorAll(".eq-m")];
+  // Equations too wide for a phone scroll sideways; a fade on the right edge says there is more.
+  const fadeWide = () => mEqs.forEach(e => e.classList.toggle("wide", e.scrollLeft + e.clientWidth < e.scrollWidth - 2));
+  function trackSteps() {
+    const line = mBar.offsetHeight + mPanel.clientHeight * 0.3;
+    let at = 0;
+    mSteps.forEach((sec, i) => { if (sec.getBoundingClientRect().top <= line) at = i; });
+    mLinks.forEach((a, i) => {
+      a.classList.toggle("done", i < at);
+      if (i === at) a.setAttribute("aria-current", "step"); else a.removeAttribute("aria-current");
+    });
+    mList.style.setProperty("--p", mLinks.length > 1 ? at / (mLinks.length - 1) : 0);
+    const max = mPanel.scrollHeight - mPanel.clientHeight;
+    mProg.style.transform = "scaleX(" + (max > 0 ? mPanel.scrollTop / max : 0) + ")";
+  }
+  new ResizeObserver(() => {
+    mPanel.style.setProperty("--bar-h", mBar.offsetHeight + "px");
+    trackSteps(); fadeWide();
+  }).observe(mBar);
+  let mTick = 0;
+  mPanel.addEventListener("scroll", () => {
+    if (!mTick) mTick = requestAnimationFrame(() => { mTick = 0; trackSteps(); });
+  }, { passive: true });
+  mEqs.forEach(e => e.addEventListener("scroll", fadeWide, { passive: true }));
+  mList.addEventListener("click", ev => {
+    const a = ev.target.closest("a[href^='#m-']");
+    if (!a) return;
+    ev.preventDefault();
+    $(a.getAttribute("href").slice(1)).scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+  });
+
+  renderMast();
+  paint();
+  renderLegend();
+  renderTable();
+  select(selected);
+  if (hashIso) {
+    select(hashIso, { zoom: true });
+    toMap(false);
+    if (document.fonts) document.fonts.ready.then(() => { if (window.scrollY < mapSec.offsetTop) toMap(false); });
+  }
+})();
+</script>
